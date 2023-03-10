@@ -9,16 +9,14 @@ export class Comment {
     private dislikes: number,
     private createdAt: string,
     private updatedAt: string,
-    private creator: {
-      id: string;
-      name: string;
-    }
+    private creatorId: string,
+    private creatorName: string,
   ) {}
 
   public toDBModel(): CommentDB {
     return {
       id: this.id,
-      creator_id: this.creator.id,
+      creator_id: this.creatorId,
       post_id: this.postId,
       content: this.content,
       likes: this.likes,
@@ -37,11 +35,9 @@ export class Comment {
       dislikes: this.dislikes,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-      creator: {
-        id: this.creator.id,
-        name: this.creator.name,
-      },
-    };
+      creatorId: this.creatorId,
+      creatorName: this.creatorName,
+    }
   }
 
   public getId(): string {
@@ -86,18 +82,19 @@ export class Comment {
   public setUpdatedAt(value: string) {
     this.updatedAt = value;
   }
-  public getCreator(): {
-    id: string;
-    name: string;
-  } {
-    return this.creator;
+  public getCreatorId(): string {
+    return this.creatorId;
   }
-  public setCreator(value: {
-    id: string;
-    name: string;
-  }) {
-    this.creator = value;
+  public setCreatorId(value: string) {
+    this.creatorId = value;
   }
+  public getCreatorName(): string {
+    return this.creatorName;
+  }
+  public setCreatorName(value: string) {
+    this.creatorName = value;
+  }
+  
 
   public addLike() {
     this.likes += 1
