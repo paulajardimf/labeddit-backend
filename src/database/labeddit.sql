@@ -34,13 +34,13 @@ INSERT INTO posts (id, creator_id, content) VALUES
 
 CREATE TABLE comments (
   id TEXT PRIMARY KEY UNIQUE NOT NULL,
-  creator_id TEXT NOT NULL,
   post_id TEXT NOT NULL,
   content TEXT NOT NULL,
   likes INTEGER DEFAULT(0),
   dislikes INTEGER DEFAULT(0),
   created_at TEXT DEFAULT(DATETIME()),
   updated_at TEXT DEFAULT(DATETIME()),
+  creator_id TEXT NOT NULL,
   FOREIGN KEY (creator_id) REFERENCES users(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
@@ -49,16 +49,16 @@ CREATE TABLE comments (
     ON UPDATE CASCADE
 );
 
-INSERT INTO comments (id, creator_id, post_id, content) VALUES
-  ("c001", "u001", "p001", "Tudo bem?"),
-  ("c002", "u002", "p001", "Tudo ótimo!"),
-  ("c003", "u001", "p001", "Que bom!"),
-  ("c004", "u002", "p002", "Bom dia!"),
-  ("c005", "u003", "p002", "Bom dia pra você!"),
-  ("c006", "u004", "p002", "Auuuu!!!"),
-  ("c007", "u002", "p003", "Sua linda!!!"),
-  ("c008", "u001", "p003", "Minha nenê!!!"),
-  ("c009", "u004", "p003", "Auuuuu auuu!!!");
+INSERT INTO comments (id, post_id, content, creator_id) VALUES
+  ("c001", "p001", "Tudo bem?", "u001"),
+  ("c002", "p001", "Tudo ótimo!", "u002"),
+  ("c003", "p001", "Que bom!", "u001"),
+  ("c004", "p002", "Bom dia!", "u002"),
+  ("c005", "p002", "Bom dia pra você!", "u003"),
+  ("c006", "p002", "Auuuu!!!", "u004"),
+  ("c007", "p003", "Sua linda!!!", "u002"),
+  ("c008", "p003", "Minha nenê!!!", "u001"),
+  ("c009", "p003", "Auuuuu auuu!!!", "u004");
 
 CREATE TABLE likes_dislikes_posts (
   user_id TEXT NOT NULL,
@@ -95,3 +95,17 @@ SELECT * FROM users;
 SELECT * FROM posts;
 
 SELECT * FROM comments;
+
+SELECT 
+  comments.id, 
+  comments.creator_id,
+  comments.post_id,
+  comments.content,
+  comments.likes,
+  comments.dislikes,
+  comments.created_at,
+  comments.updated_at,
+  users.name AS creator_name
+FROM comments
+INNER JOIN users ON creator_id = users.id
+WHERE post_id = "p001";

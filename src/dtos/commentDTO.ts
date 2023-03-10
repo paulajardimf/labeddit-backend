@@ -7,3 +7,8 @@ export interface CreateCommentInput {
 export interface CreateCommentOutput {
   message: string
 }
+
+export interface GetCommentsByPostIdInput {
+  postId: string,
+  token: string | undefined
+}

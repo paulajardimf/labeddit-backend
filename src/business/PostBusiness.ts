@@ -5,7 +5,6 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { IdGenerator } from "../services/IdGenerator";
 import { HashManager } from "../services/HashManager";
 import { TokenManager } from "../services/TokenManager";
-import { ForbiddenError } from "../errors/ForbiddenError";
 import { LikeDislikeDB, PostDB, PostModel, POST_LIKE, USER_ROLES } from "../types";
 import { NotFoundError } from "../errors/NotFoundError";
 

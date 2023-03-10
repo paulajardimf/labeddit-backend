@@ -110,4 +110,28 @@ export class UserBusiness {
 
     return output
   }
+
+  public getUserById = async (id: string): Promise<User> => {
+    if (!id) {
+      throw new BadRequestError("Id não enviado!");
+    }
+
+    const userDB = await this.userDatabase.getUserById(id);
+
+    if (!userDB) {
+      throw new NotFoundError("Usuário não encontrado!");
+    }
+
+    const user = new User(
+      userDB.id,
+      userDB.name,
+      userDB.email,
+      userDB.password,
+      userDB.role,
+      userDB.created_at
+    );
+
+    return user;
+  }
+
 }
