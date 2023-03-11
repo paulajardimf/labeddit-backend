@@ -14,6 +14,7 @@ const commentController = new CommentController(
   new CommentBusiness(
     new CommentDatabase(),
     new UserDatabase(),
+    new PostDatabase(),
     new IdGenerator(),
     new TokenManager(),
     new HashManager()
@@ -23,3 +24,4 @@ const commentController = new CommentController(
 commentRouter.get("/:id", commentController.getComments)
 commentRouter.post("/:id", commentController.createComment)
 commentRouter.delete("/:id", commentController.deleteComment)
+commentRouter.put("/:id/like", commentController.likeOrDislikeComment)

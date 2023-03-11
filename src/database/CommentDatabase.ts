@@ -1,4 +1,4 @@
-import { CommentDB, CommentWithCreatorDB, LikeDislikeCommentDB, LikeDislikeDB, POST_LIKE, UserDB } from "../types";
+import { CommentDB, CommentWithCreatorDB, COMMENT_LIKE, LikeDislikeCommentDB, LikeDislikeDB, POST_LIKE, UserDB } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 import { UserDatabase } from "./UserDatabase";
 
@@ -44,6 +44,17 @@ export class CommentDatabase extends BaseDatabase {
     return commentDB
   }
 
+  public getIdPostByCommentId = async (id: string) => {
+    const postId = await BaseDatabase
+      .connection(CommentDatabase.TABLE_COMMENTS)
+      .select(
+        "comments.post_id"       
+      )
+      .where({id})
+
+    return postId
+  }
+
   public createComment = async (comment: CommentDB): Promise<void> => {
     await BaseDatabase
       .connection(CommentDatabase.TABLE_COMMENTS)
@@ -62,47 +73,44 @@ export class CommentDatabase extends BaseDatabase {
       .where({ id })
   }
 
-  public likeOrDislikeComment = async (likeDislike: string): Promise<void> => {
+  public likeOrDislikeComment = async (likeDislike: LikeDislikeCommentDB): Promise<void> => {
     await BaseDatabase.connection(CommentDatabase.TABLE_LIKES_DISLIKES_COMMENTS)
       .insert(likeDislike)
   }
 
-  public findLikeDislikeComment = async (likeDislikeDBToFind: LikeDislikeCommentDB): Promise<any> => {
+  public findLikeDislike = async (likeDislikeDBToFind: LikeDislikeCommentDB): Promise<any> => {
     const [ likeDislikeDB ]: LikeDislikeDB[] = await BaseDatabase
       .connection(CommentDatabase.TABLE_LIKES_DISLIKES_COMMENTS)
       .select()
       .where({
         user_id: likeDislikeDBToFind.user_id,
-        comment_id: likeDislikeDBToFind.comment_id,
-        post_id: likeDislikeDBToFind.post_id
+        comment_id: likeDislikeDBToFind.comment_id
       })
 
     if (likeDislikeDB) {
       return likeDislikeDB.like === 1
-        ? POST_LIKE.ALREADY_LIKED
-        : POST_LIKE.ALREADY_DISLIKED
+        ? COMMENT_LIKE.ALREADY_LIKED
+        : COMMENT_LIKE.ALREADY_DISLIKED
     } else {
       return null
     }
   }
 
-  public removeLikeDislikeComment = async (likeDislikeDBToFind: LikeDislikeCommentDB): Promise<void> => {
+  public removeLikeDislike = async (likeDislikeDBToFind: LikeDislikeCommentDB): Promise<void> => {
     await BaseDatabase.connection(CommentDatabase.TABLE_LIKES_DISLIKES_COMMENTS)
       .delete()
       .where({
         user_id: likeDislikeDBToFind.user_id,
-        comment_id: likeDislikeDBToFind.comment_id,
-        post_id: likeDislikeDBToFind.post_id
+        comment_id: likeDislikeDBToFind.comment_id
       })
   }
 
-  public updateLikeDislikeComment = async (likeDislikeDBToFind: LikeDislikeCommentDB): Promise<void> => {
+  public updateLikeDislike = async (likeDislikeDBToFind: LikeDislikeCommentDB): Promise<void> => {
     await BaseDatabase.connection(CommentDatabase.TABLE_LIKES_DISLIKES_COMMENTS)
-      .update({ like: likeDislikeDBToFind.like })
+      .update(likeDislikeDBToFind)
       .where({
         user_id: likeDislikeDBToFind.user_id,
-        comment_id: likeDislikeDBToFind.comment_id,
-        post_id: likeDislikeDBToFind.post_id
+        comment_id: likeDislikeDBToFind.comment_id
       })
   }
 }
