@@ -23,7 +23,7 @@ export class Comment {
       created_at: this.createdAt,
       updated_at: this.updatedAt,
       creator_id: this.creatorId,
-    };
+    }
   }
 
   public toBusinessModel(): CommentModel {

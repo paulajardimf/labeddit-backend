@@ -12,3 +12,8 @@ export interface GetCommentsByPostIdInput {
   postId: string,
   token: string | undefined
 }
+
+export interface DeleteCommentInput {
+  commentId: string,
+  token: string | undefined
+}
