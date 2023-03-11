@@ -1,6 +1,6 @@
 import { CommentDatabase } from "../database/CommentDatabase"
 import { UserDatabase } from "../database/UserDatabase"
-import { CreateCommentInput, CreateCommentOutput, GetCommentsByPostIdInput } from "../dtos/commentDTO"
+import { CreateCommentInput, CreateCommentOutput, DeleteCommentInput, GetCommentsByPostIdInput } from "../dtos/commentDTO"
 import { BadRequestError } from "../errors/BadRequestError"
 import { Comment } from "../models/Comment"
 import { HashManager } from "../services/HashManager"
@@ -98,5 +98,41 @@ export class CommentBusiness {
     })
 
     return comments
+  }
+
+  public deleteComment = async (input: DeleteCommentInput) => {
+    const { commentId, token } = input
+
+    if(!token) {
+      throw new BadRequestError("Token não enviado!")
+    }
+
+    const payload = this.tokenManager.getPayload(token as string)
+
+    if(payload === null) {
+      throw new BadRequestError("Token inválido!")
+    }
+
+    if (typeof commentId !== "string") {
+      throw new BadRequestError("'commentId' deve ser string")
+    }
+
+    const commentDB = await this.commentDatabase.getCommentById(commentId)
+
+    if (!commentDB) {
+      throw new BadRequestError("Comentário não encontrado!")
+    }
+
+    if (commentDB.creator_id !== payload.id || payload.role !== "ADMIN") {
+      throw new BadRequestError("Somente o criador do comentário pode deletá-lo!")
+    }
+
+    await this.commentDatabase.deleteCommentById(commentId)
+
+    const output = {
+      message: "Comentário deletado com sucesso!"
+    }
+
+    return output
   }
 }

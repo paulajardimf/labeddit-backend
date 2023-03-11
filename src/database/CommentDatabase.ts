@@ -35,6 +35,15 @@ export class CommentDatabase extends BaseDatabase {
     return result
   }
 
+  public getCommentById = async (id: string) => {
+    const [ commentDB ]: CommentWithCreatorDB[] = await BaseDatabase
+      .connection(CommentDatabase.TABLE_COMMENTS)
+      .select()
+      .where({ id })
+
+    return commentDB
+  }
+
   public createComment = async (comment: CommentDB): Promise<void> => {
     await BaseDatabase
       .connection(CommentDatabase.TABLE_COMMENTS)
