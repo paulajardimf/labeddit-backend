@@ -9,7 +9,7 @@ import { Post } from "../models/Post"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
 import { TokenManager } from "../services/TokenManager"
-import { CommentWithCreatorDB, COMMENT_LIKE, LikeDislikeCommentDB, LikeDislikeDB } from "../types"
+import { CommentWithCreatorDB, COMMENT_LIKE, LikeDislikeCommentDB, LikeDislikeDB, USER_ROLES } from "../types"
 import { PostBusiness } from "./PostBusiness"
 
 export class CommentBusiness {
@@ -127,9 +127,9 @@ export class CommentBusiness {
     if (!commentDB) {
       throw new BadRequestError("Comentário não encontrado!")
     }
-
-    if (commentDB.creator_id !== payload.id || payload.role !== "ADMIN") {
-      throw new BadRequestError("Somente o criador do comentário pode deletá-lo!")
+    
+    if (payload.role !== USER_ROLES.ADMIN && commentDB.creator_id !== payload.id) {
+      throw new BadRequestError("Somente o criador do comentário pode deletar.")
     }
 
     await this.commentDatabase.deleteCommentById(commentId)
