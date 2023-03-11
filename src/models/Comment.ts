@@ -16,13 +16,13 @@ export class Comment {
   public toDBModel(): CommentDB {
     return {
       id: this.id,
-      creator_id: this.creatorId,
       post_id: this.postId,
       content: this.content,
       likes: this.likes,
       dislikes: this.dislikes,
       created_at: this.createdAt,
       updated_at: this.updatedAt,
+      creator_id: this.creatorId,
     };
   }
 
