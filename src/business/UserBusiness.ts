@@ -31,6 +31,24 @@ export class UserBusiness {
       throw new BadRequestError("'password' deve ser string");
     }
 
+    if (name.length < 3) {
+      throw new BadRequestError("'name' deve possuir no mínimo 3 caracteres")
+    }
+
+    if (email.length < 3 || !email.includes("@")) {
+      throw new BadRequestError("'email' deve possuir no mínimo 3 caracteres e ter @")
+    }
+
+    const userEmailDB = await this.userDatabase.findUserByEmail(email)
+
+    if (userEmailDB) {
+      throw new BadRequestError("Email já cadastrado")
+    }
+
+    if (password.length < 3) {
+      throw new BadRequestError("'password' deve possuir no mínimo 3 caracteres")
+    }
+
     const hashedPassword = await this.hashManager.hash(password);
 
     const id = this.idGenerator.generate();
