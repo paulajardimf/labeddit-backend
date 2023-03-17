@@ -6,7 +6,7 @@ import { IdGeneratorMock } from "../mocks/IdGeneratorMock"
 import { TokenManagerMock } from "../mocks/TokenManagerMock"
 import { UserDatabaseMock } from "../mocks/UserDatabaseMock"
 
-describe("login", () => {
+describe("getUserById", () => {
     const userBusiness = new UserBusiness(
         new UserDatabaseMock(),
         new IdGeneratorMock(),

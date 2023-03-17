@@ -41,9 +41,7 @@ export class UserDatabaseMock extends BaseDatabase {
     }
   };
 
-  public insertUser = async (userDB: UserDB) => {
-    
-  };
+  public insertUser = async (newUserDB: UserDB) => {};
 
   public findUserByEmail = async (email: string) => {
     switch (email) {
