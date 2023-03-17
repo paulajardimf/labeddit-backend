@@ -12,8 +12,7 @@ export class PostBusiness {
   constructor(
     private postDatabase: PostDatabase,
     private idGenerator: IdGenerator,
-    private tokenManager: TokenManager,
-    private hashManager: HashManager
+    private tokenManager: TokenManager
   ) {}
 
   public getPosts = async (input: GetPostsInput) => {
