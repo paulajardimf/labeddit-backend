@@ -124,7 +124,7 @@ export class PostBusiness {
     }
 
     if (typeof content !== "string") {
-      throw new BadRequestError("'name' deve ser string")
+      throw new BadRequestError("'content' deve ser string")
     }
 
     const postDB : PostDB | undefined = await this.postDatabase.findById(idToEdit)

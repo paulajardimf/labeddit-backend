@@ -12,8 +12,7 @@ const postController = new PostController(
   new PostBusiness(
     new PostDatabase(),
     new IdGenerator(),
-    new TokenManager(),
-    new HashManager()
+    new TokenManager()
   )
 );
 
