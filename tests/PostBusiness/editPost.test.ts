@@ -1,10 +1,10 @@
 import { PostBusiness } from "../../src/business/PostBusiness";
-import { DeletePostInput } from "../../src/dtos/postDTO";
+import { EditPostInput } from "../../src/dtos/postDTO";
 import { IdGeneratorMock } from "../mocks/IdGeneratorMock";
 import { PostDatabaseMock } from "../mocks/PostDatabaseMock";
 import { TokenManagerMock } from "../mocks/TokenManagerMock";
 
-describe("deletePost", () => {
+describe("editPost", () => {
   const postBusiness = new PostBusiness(
     new PostDatabaseMock(),
     new IdGeneratorMock(),
@@ -12,13 +12,14 @@ describe("deletePost", () => {
   );
 
   test("Deve retornar erro caso o token não seja enviado", async () => {
-    const input: DeletePostInput = {
+    const input: EditPostInput = {
       token: undefined,
-      idToDelete: "id-mock-p1",
+      idToEdit: "id-mock-p1",
+      content: "content-mock-p1",
     };
 
     try {
-      await postBusiness.deletePost(input);
+      await postBusiness.editPost(input);
     } catch (error: any) {
       expect(error.statusCode).toBe(400);
       expect(error.message).toBe("Token ausente!");
@@ -26,13 +27,14 @@ describe("deletePost", () => {
   });
 
   test("Deve retornar erro caso o token seja inválido", async () => {
-    const input: DeletePostInput = {
+    const input: EditPostInput = {
       token: "token-mock-invalido",
-      idToDelete: "id-mock-p1",
+      idToEdit: "id-mock-p1",
+      content: "content-mock-p1",
     };
 
     try {
-      await postBusiness.deletePost(input);
+      await postBusiness.editPost(input);
     } catch (error: any) {
       expect(error.statusCode).toBe(400);
       expect(error.message).toBe("Usuário não logado!");
@@ -40,13 +42,14 @@ describe("deletePost", () => {
   });
 
   test("Deve retornar erro caso não encontre um id válido", async () => {
-    const input: DeletePostInput = {
+    const input: EditPostInput = {
       token: "token-mock-normal",
-      idToDelete: "123",
+      idToEdit: "123",
+      content: "content-mock-p1",
     };
 
     try {
-      await postBusiness.deletePost(input);
+      await postBusiness.editPost(input);
     } catch (error: any) {
       expect(error.statusCode).toBe(404);
       expect(error.message).toBe("'id' não encontrado");
@@ -54,16 +57,33 @@ describe("deletePost", () => {
   });
 
   test("Deve retornar erro caso o usuário não seja o criador do post", async () => {
-    const input: DeletePostInput = {
+    const input: EditPostInput = {
       token: "token-mock-normal",
-      idToDelete: "id-mock-p2",
+      idToEdit: "id-mock-p2",
+      content: "content-mock-p1",
     };
 
     try {
-      await postBusiness.deletePost(input);
+      await postBusiness.editPost(input);
     } catch (error: any) {
-      expect(error.statusCode).toBe(400);
-      expect(error.message).toBe("Somente o criador do post pode deletá-lo.");
+      expect(error.statusCode).toBe(401);
+      expect(error.message).toBe("Somente o criador do post pode editar.");
     }
   });
+
+  test("Deve retornar erro caso o post não tenha conteúdo", async () => {
+    const input: EditPostInput = {
+      token: "token-mock-normal",
+      idToEdit: "id-mock-p1",
+      content: "",
+    };
+
+    try {
+      await postBusiness.editPost(input);
+    }
+    catch (error: any) {
+      expect(error.statusCode).toBe(400);
+      expect(error.message).toBe("O post deve conter conteúdo.");
+    }
+  })
 });
