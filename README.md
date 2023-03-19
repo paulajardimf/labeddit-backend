@@ -6,8 +6,9 @@
 * [Introdução](#introdução)
 * [Repositorio do Front End](#repositório-front-end)
 * [Tecnologias utilizadas](#tecnologias-utilizadas)
-* [Funcionabilidades do Projeto](#funcionabilidades-do-projeto)
 * [Aplicações utilizadas](#aplicações-utilizadas)
+* [Funcionabilidades do Projeto](#funcionabilidades-do-projeto)
+* [Banco de Dados](#banco-de-dados)
 * [Documentação](#documentação)
 * [Rodando o projeto](#rodando-o-projeto)
 
@@ -25,7 +26,17 @@ https://github.com/paulajardimf/labeddit-frontend
 3. ``Knex``
 4. ``Express``
 5. ``SQLite``
-6. ``Jest``
+6. ``POO``
+7. ``Arquitetura em camadas``
+8. ``Geração de UUID``
+9. ``Geração de hashes``
+10. ``Autenticação e autorização``
+11. ``Roteamento``
+12. ``Jest``
+
+## Aplicações utilizadas
+- Postman
+- Render
 
 ## Funcionabilidades do Projeto
 
@@ -72,12 +83,9 @@ https://github.com/paulajardimf/labeddit-frontend
 - [x] Like or Dislike Comment:
 <br>
 
+## Banco de Dados
 ![imagem bd](./labeddit.png)
  
-## Aplicações utilizadas
-- Postman
-- Render
-
 ## Documentação
 https://documenter.getpostman.com/view/24460767/2s93JzMgNf
 
