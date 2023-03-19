@@ -18,8 +18,8 @@ export class PostDatabaseMock extends BaseDatabase {
         content: "Post mockado 1",
         likes: 0,
         dislikes: 0,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        created_at: expect.any(String),
+        updated_at: expect.any(String),
       },
       {
         id: "id-mock-p2",
@@ -27,8 +27,8 @@ export class PostDatabaseMock extends BaseDatabase {
         content: "Post mockado 2",
         likes: 1,
         dislikes: 0,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        created_at: expect.any(String),
+        updated_at: expect.any(String),
       },
     ];
   };
@@ -40,7 +40,7 @@ export class PostDatabaseMock extends BaseDatabase {
         name: "Normal Mock",
         email: "normal@email.com",
         password: "hash-bananinha",
-        created_at: new Date().toISOString(),
+        created_at: expect.any(String),
         role: USER_ROLES.NORMAL,
       },
       {
@@ -48,7 +48,7 @@ export class PostDatabaseMock extends BaseDatabase {
         name: "Admin Mock",
         email: "admin@email.com",
         password: "hash-bananinha",
-        created_at: new Date().toISOString(),
+        created_at: expect.any(String),
         role: USER_ROLES.ADMIN,
       },
     ];
@@ -76,8 +76,8 @@ export class PostDatabaseMock extends BaseDatabase {
           content: "Post mockado 1",
           likes: 0,
           dislikes: 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+          created_at: expect.any(String),
+          updated_at: expect.any(String),
         };
       case "id-mock-p2":
         return {
@@ -86,8 +86,8 @@ export class PostDatabaseMock extends BaseDatabase {
           content: "Post mockado 2",
           likes: 1,
           dislikes: 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+          created_at: expect.any(String),
+          updated_at: expect.any(String),
         };
       default:
         return undefined;
@@ -109,8 +109,8 @@ export class PostDatabaseMock extends BaseDatabase {
           content: "Post mockado 1",
           likes: 0,
           dislikes: 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+          created_at: expect.any(String),
+          updated_at: expect.any(String),
         };
       case "id-mock-p2":
         return {
@@ -119,8 +119,8 @@ export class PostDatabaseMock extends BaseDatabase {
           content: "Post mockado 2",
           likes: 1,
           dislikes: 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+          created_at: expect.any(String),
+          updated_at: expect.any(String),
         };
       default:
         return undefined;
