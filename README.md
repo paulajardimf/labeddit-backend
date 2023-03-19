@@ -4,6 +4,7 @@
 ## Índice
 
 * [Introdução](#introdução)
+* [Repositorio do Front End](#repositório-front-end)
 * [Tecnologias utilizadas](#tecnologias-utilizadas)
 * [Funcionabilidades do Projeto](#funcionabilidades-do-projeto)
 * [Aplicações utilizadas](#aplicações-utilizadas)
@@ -13,8 +14,8 @@
 ## Introdução
 - Projeto do back end de uma rede social.
 
-## Front End
-- Respositório do front end do Labeddit: 
+## Repositório Front End
+- Repositório do front end do Labeddit: 
 https://github.com/paulajardimf/labeddit-frontend
 
 ## Tecnologias utilizadas
@@ -29,49 +30,49 @@ https://github.com/paulajardimf/labeddit-frontend
 ## Funcionabilidades do Projeto
 
 - [x] Signup:
-  - id;
-  - name;
-  - email;
-  - password;
-  - role.
+- id;
+- name;
+- email;
+- password;
+- role.
 
 - [x] Login:
-  - email;
-  - password.
+- email;
+- password.
 <br>
 
 - [x] Create Post:
-  - id;
-  - content;
-  - likes;
-  - dislikes;
-  - createdAt;
-  - updatedAt;
-  - creator {
-      id;
-      name.
-    }
+- id;
+- content;
+- likes;
+- dislikes;
+- createdAt;
+- updatedAt;
+- creator {
+  id;
+  name.
+}
 <br>
 
 - [x] Like or Dislike Post:
 <br>
 
 - [x] Create Comment:
-  - id;
-  - postId;
-  - content;
-  - likes;
-  - dislikes;
-  - createdAt;
-  - updatedAt;
-  - creatorId;
-  - creatorName.
+- id;
+- postId;
+- content;
+- likes;
+- dislikes;
+- createdAt;
+- updatedAt;
+- creatorId;
+- creatorName.
 <br>
 
 - [x] Like or Dislike Comment:
 <br>
 
-<iframe width="560" height="315" src='https://dbdiagram.io/embed/640237dd296d97641d854c19'> </iframe>
+![imagem bd](./labeddit.png)
  
 ## Aplicações utilizadas
 - Postman
